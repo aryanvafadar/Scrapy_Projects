@@ -1,0 +1,40 @@
+name: "Daily Snowy Spider Crawl"
+
+# Trigger everyday at midnight
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out your code
+      - uses: actions/checkout@v3
+
+      # 2. Set up Python
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+          cache: "pip"
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install scrapy
+
+      # 4. Run the spider
+      - name: Run Snowy spider
+        run: |
+          scrapy crawl snowy -o results.json
+
+      # 5. Commit & push the output
+      - name: Commit results
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🕷️ Daily snowy crawl results"
+          file_pattern: results.json

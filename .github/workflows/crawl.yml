@@ -38,8 +38,7 @@ jobs:
         working-directory: ./project2
         run: |
           scrapy crawl snowy \
-            -o output_files/results.json \
-            -s CLOSESPIDER_ITEMCOUNT=5
+            -o output_files/results.json
 
       # Debug: list the output directory
       - name: List output files

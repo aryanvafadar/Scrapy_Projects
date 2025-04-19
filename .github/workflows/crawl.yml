@@ -29,6 +29,7 @@ jobs:
 
       # 4. Run the spider
       - name: Run Snowy spider
+        working-directory: ./project2
         run: |
           scrapy crawl snowy -o results.json
 

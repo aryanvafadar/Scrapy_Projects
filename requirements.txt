@@ -1,6 +1,4 @@
-scrapy>=2.8.0
-scrapy-rotating-proxies>=0.4.8
-scrapy-user-agents>=0.1.2
-# any other middlewares or libraries you’ve installed:
-# rotating-proxies (if separate), requests, pandas, etc.
-requests>=2.28.0
+scrapy
+scrapy-rotating-proxies
+scrapy-user-agents
+requests

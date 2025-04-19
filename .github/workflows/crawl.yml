@@ -38,12 +38,16 @@ jobs:
             -o output_files/results.json \
             -s CLOSESPIDER_ITEMCOUNT=5
 
+      # Debug: list the output directory
+      - name: List output files
+        run: ls -R project2/output_files
+
       # 5. Commit & push the output
       - name: Commit results
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "🕷️ Daily snowy crawl results"
-          file_pattern: "project2/output_files/**/*.json"
+          file_pattern: "project2/output_files/*.json"
           skip_dirty_check: true
 
       # Save results.json as an artifact as a backup

@@ -43,7 +43,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "🕷️ Daily snowy crawl results"
-          file_pattern: "output_files/**/*.json"
+          file_pattern: "project2/output_files/**/*.json"
           skip_dirty_check: true
 
       # Save results.json as an artifact as a backup
@@ -51,4 +51,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snowy-results
-          path: output_files/results.json
+          path: project2/output_files/results.json

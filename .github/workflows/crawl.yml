@@ -3,7 +3,7 @@ name: "Daily Snowy Spider Crawl"
 # Trigger everyday at midnight
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -13,6 +13,9 @@ jobs:
     steps:
       # 1. Check out your code
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
       # 2. Set up Python
       - name: Set up Python 3.x
@@ -31,11 +34,21 @@ jobs:
       - name: Run Snowy spider
         working-directory: ./project2
         run: |
-          scrapy crawl snowy -o results.json
+          scrapy crawl snowy \
+            -o output_files/results.json \
+            -s CLOSESPIDER_ITEMCOUNT=5
 
       # 5. Commit & push the output
       - name: Commit results
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "🕷️ Daily snowy crawl results"
-          file_pattern: results.json
+          file_pattern: "output_files/**/*.json"
+          skip_dirty_check: true
+
+      # Save results.json as an artifact as a backup
+      - name: Upload results.json
+        uses: actions/upload-artifact@v3
+        with:
+          name: snowy-results
+          path: output_files/results.json
